@@ -25,16 +25,22 @@ export default async function AppHomePage() {
       {access.hasAccess ? (
         <div className="rounded-2xl border border-zinc-200 bg-white p-5">
           <p className="text-sm font-semibold text-zinc-900">
-            Your courses land here soon
+            Jump into today&apos;s lesson
           </p>
           <p className="mt-1 text-sm text-zinc-600">
-            Lessons are coming in the next update. Your access is active until{" "}
+            Short, practical lessons. Your access is active until{" "}
             {access.expiresAt?.toLocaleDateString("en-KE", {
               day: "numeric",
               month: "long",
             })}
             .
           </p>
+          <Link
+            href="/app/courses"
+            className="mt-3 inline-block rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500"
+          >
+            Go to courses
+          </Link>
         </div>
       ) : (
         <div className="rounded-2xl border border-zinc-200 bg-white p-5">
