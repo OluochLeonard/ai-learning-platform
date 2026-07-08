@@ -448,6 +448,29 @@ function CompletionScreen({
   result: Extract<CompletionResult, { ok: true }>;
   trackSlug: string;
 }) {
+  if (result.certificateId) {
+    return (
+      <div className="mx-auto flex min-h-[calc(100vh-8rem)] w-full max-w-md flex-col items-center justify-center px-5 py-10 text-center">
+        <div className="text-6xl">🎓</div>
+        <h1 className="mt-4 text-2xl font-bold text-zinc-900">
+          Course complete!
+        </h1>
+        <p className="mt-2 text-zinc-600">
+          You finished every lesson. Your certificate is ready.
+        </p>
+        <Link
+          href={`/app/certificate/${result.certificateId}`}
+          className="mt-8 w-full rounded-xl bg-indigo-600 px-6 py-4 text-base font-semibold text-white hover:bg-indigo-500"
+        >
+          View my certificate 🎉
+        </Link>
+        <Link href={`/app/courses/${trackSlug}`} className="mt-3 text-sm text-zinc-500">
+          Back to course
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="mx-auto flex min-h-[calc(100vh-8rem)] w-full max-w-md flex-col items-center justify-center px-5 py-10 text-center">
       <div className="text-6xl">🔥</div>

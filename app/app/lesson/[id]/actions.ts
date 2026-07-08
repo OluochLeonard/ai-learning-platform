@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getActiveProfile } from "@/lib/profile";
 import { getLessonContext, hasActiveAccess } from "@/lib/lessons";
 import { updateStreak, type StreakResult } from "@/lib/streak";
+import { ensureCertificate } from "@/lib/certificates";
 import { QUIZ_PASS_MARK } from "@/types/content";
 
 export type CompletionResult =
@@ -12,6 +13,7 @@ export type CompletionResult =
       streak: StreakResult;
       nextLessonId: string | null;
       trackSlug: string;
+      certificateId: string | null;
     }
   | { ok: false; error: string };
 
@@ -58,6 +60,16 @@ export async function completeLesson(
 
   const streak = await updateStreak(profile.id);
 
+  // Track fully complete? Generate the certificate (idempotent).
+  let certificateId: string | null = null;
+  try {
+    const cert = await ensureCertificate(profile.id, context.track.id);
+    certificateId = cert?.id ?? null;
+  } catch (e) {
+    // A cert failure must never block lesson completion.
+    console.error("certificate generation failed", e);
+  }
+
   const next = context.siblings.find(
     (s) => s.sort_order > context.lesson.sort_order,
   );
@@ -67,5 +79,6 @@ export async function completeLesson(
     streak,
     nextLessonId: next?.id ?? null,
     trackSlug: context.track.slug,
+    certificateId,
   };
 }
