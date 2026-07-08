@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Learning Platform
 
-## Getting Started
+Subscription-based AI-skills learning platform for the Kenyan and East African market. Microlearning lessons, quizzes, streaks, and certificates, with a quiz funnel driving paid signups. Adults plus a parent-gated kids' zone.
 
-First, run the development server:
+Working name: "PLATFORM" (brand name pending; it appears only in UI strings and metadata).
+
+## Stack
+
+- Next.js (App Router) + TypeScript + Tailwind CSS
+- Supabase: Postgres + Auth (schema in `schema.sql`, fixes in `supabase/migrations/`)
+- Vercel hosting, auto-deploys from `main`
+- Payments: Pesapal (pending) behind a stub `PaymentProvider` interface
+- AI practice feedback: Anthropic API, server-side only
+
+## Environment variables
+
+Set these in `.env.local` (never committed) and in Vercel project settings:
+
+| Variable | Notes |
+| --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Public anon key |
+| `SUPABASE_SERVICE_ROLE_KEY` | Service role secret. Server-only, bypasses RLS |
+| `ANTHROPIC_API_KEY` | Added in Phase 3 (lesson practice feedback) |
+| `PESAPAL_*` | Added when Pesapal integration lands |
+
+## Development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run lint
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Database
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`schema.sql` is the base schema, applied via the Supabase SQL Editor. Later changes live in `supabase/migrations/` and are applied the same way, in filename order.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Build plan
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Phased build plan in `build-plan.md`. Phase 1 (scaffold, auth, profiles, app shell) is complete.
