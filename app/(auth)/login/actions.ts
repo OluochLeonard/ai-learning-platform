@@ -11,7 +11,11 @@ export async function login(
 ): Promise<AuthActionState> {
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
-  const next = String(formData.get("next") ?? "/app");
+  const rawNext = String(formData.get("next") ?? "/app");
+  // Only allow same-site relative paths to prevent open redirects.
+  const next = rawNext.startsWith("/") && !rawNext.startsWith("//")
+    ? rawNext
+    : "/app";
 
   if (!email || !password) {
     return { error: "Enter your email and password." };

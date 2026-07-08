@@ -1,7 +1,13 @@
 import Link from "next/link";
 import SignupForm from "./SignupForm";
 
-export default function SignupPage() {
+export default async function SignupPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ next?: string }>;
+}) {
+  const { next } = await searchParams;
+
   return (
     <div className="space-y-6">
       <div>
@@ -12,10 +18,13 @@ export default function SignupPage() {
           Start learning AI skills today.
         </p>
       </div>
-      <SignupForm />
+      <SignupForm next={next ?? "/app"} />
       <p className="text-center text-sm text-zinc-600">
         Already have an account?{" "}
-        <Link href="/login" className="font-medium text-indigo-600">
+        <Link
+          href={next ? `/login?next=${encodeURIComponent(next)}` : "/login"}
+          className="font-medium text-indigo-600"
+        >
           Log in
         </Link>
       </p>

@@ -14,6 +14,11 @@ export async function signup(
   const password = String(formData.get("password") ?? "");
   const displayName = String(formData.get("display_name") ?? "").trim();
   const phone = String(formData.get("phone") ?? "").trim();
+  const rawNext = String(formData.get("next") ?? "/app");
+  // Only allow same-site relative paths to prevent open redirects.
+  const next = rawNext.startsWith("/") && !rawNext.startsWith("//")
+    ? rawNext
+    : "/app";
 
   if (!email || !password || !displayName) {
     return { error: "Fill in your name, email and password." };
@@ -47,8 +52,8 @@ export async function signup(
   }
 
   if (!data.session) {
-    redirect("/login?message=check-email");
+    redirect(`/login?message=check-email&next=${encodeURIComponent(next)}`);
   }
 
-  redirect("/app");
+  redirect(next);
 }

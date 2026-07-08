@@ -5,11 +5,12 @@ import { signup, type AuthActionState } from "./actions";
 
 const initialState: AuthActionState = { error: null };
 
-export default function SignupForm() {
+export default function SignupForm({ next }: { next: string }) {
   const [state, formAction, pending] = useActionState(signup, initialState);
 
   return (
     <form action={formAction} className="space-y-4">
+      <input type="hidden" name="next" value={next} />
       <div>
         <label
           className="block text-sm font-medium text-zinc-700"

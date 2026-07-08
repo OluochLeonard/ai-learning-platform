@@ -7,14 +7,20 @@ export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const isAppRoute = pathname === "/app" || pathname.startsWith("/app/");
-  if (!isAppRoute) return response;
+  const isCheckoutRoute =
+    pathname.startsWith("/checkout/") || pathname === "/welcome";
+  if (!isAppRoute && !isCheckoutRoute) return response;
 
   if (!user) {
     const url = request.nextUrl.clone();
-    url.pathname = "/login";
+    // New visitors land on checkout from the paywall; send them to signup
+    // rather than login so the funnel keeps moving.
+    url.pathname = isCheckoutRoute ? "/signup" : "/login";
     url.searchParams.set("next", pathname);
     return NextResponse.redirect(url);
   }
+
+  if (isCheckoutRoute) return response;
 
   const activeProfileId = request.cookies.get(ACTIVE_PROFILE_COOKIE)?.value;
 
