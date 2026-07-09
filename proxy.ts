@@ -9,7 +9,10 @@ export async function proxy(request: NextRequest) {
   const isAppRoute = pathname === "/app" || pathname.startsWith("/app/");
   const isCheckoutRoute =
     pathname.startsWith("/checkout/") || pathname === "/welcome";
-  if (!isAppRoute && !isCheckoutRoute) return response;
+  // /admin needs auth here; the is_admin check happens in the admin layout
+  // and in every admin server action.
+  const isAdminRoute = pathname === "/admin" || pathname.startsWith("/admin/");
+  if (!isAppRoute && !isCheckoutRoute && !isAdminRoute) return response;
 
   if (!user) {
     const url = request.nextUrl.clone();
@@ -20,7 +23,7 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  if (isCheckoutRoute) return response;
+  if (isCheckoutRoute || isAdminRoute) return response;
 
   const activeProfileId = request.cookies.get(ACTIVE_PROFILE_COOKIE)?.value;
 
