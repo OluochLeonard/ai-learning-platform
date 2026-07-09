@@ -33,35 +33,41 @@ export default function QuizFunnel() {
 
   return (
     <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 py-6">
-      <div className="h-2 w-full overflow-hidden rounded-full bg-zinc-200">
+      <div className="h-2 w-full overflow-hidden rounded-full bg-white/[0.07]">
         <div
-          className="h-full rounded-full bg-indigo-600 transition-all duration-300"
+          className="h-full rounded-full bg-gradient-to-r from-indigo-500 via-violet-500 to-cyan-400 shadow-[0_0_12px_rgba(99,102,241,0.6)] transition-all duration-300"
           style={{ width: `${Math.max(progress, 4)}%` }}
         />
       </div>
-      <p className="mt-2 text-xs font-medium text-zinc-400">
+      <p className="mt-2 text-xs font-medium text-zinc-500">
         {Math.min(step + 1, total)} of {total}
       </p>
 
       {pending ? (
-        <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
-          <p className="text-2xl">🧠</p>
-          <p className="text-lg font-semibold text-zinc-900">
+        <div className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
+          <div className="relative">
+            <p className="text-4xl">🧠</p>
+            <span className="absolute -inset-4 -z-10 animate-pulse rounded-full bg-indigo-500/25 blur-2xl" />
+          </div>
+          <p className="text-lg font-semibold text-white">
             Building your plan...
           </p>
         </div>
       ) : (
         <>
-          <h1 className="mt-8 text-2xl font-bold leading-snug text-zinc-900">
+          <h1
+            key={current.key}
+            className="animate-fade-up mt-9 text-2xl font-bold leading-snug tracking-tight text-white"
+          >
             {current.question}
           </h1>
           <div className="mt-6 space-y-3">
-            {current.options.map((opt) => (
+            {current.options.map((opt, i) => (
               <button
                 key={opt.value}
                 type="button"
                 onClick={() => pick(opt.value)}
-                className="flex w-full items-center gap-3 rounded-xl border border-zinc-200 bg-white px-4 py-4 text-left text-base font-medium text-zinc-800 transition-colors hover:border-indigo-400 hover:bg-indigo-50 active:bg-indigo-100"
+                className={`glass glass-hover animate-fade-up anim-delay-${Math.min(i + 1, 4)} flex w-full items-center gap-3 px-4 py-4 text-left text-base font-medium text-zinc-100 active:scale-[0.98]`}
               >
                 {opt.emoji && <span className="text-xl">{opt.emoji}</span>}
                 {opt.label}

@@ -23,7 +23,7 @@ export default async function UpdatePasswordPage({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-semibold text-zinc-900">
+        <h1 className="text-2xl font-bold tracking-tight text-white">
           Set a new password
         </h1>
       </div>

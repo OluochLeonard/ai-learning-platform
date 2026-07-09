@@ -13,7 +13,7 @@ export default function SignupForm({ next }: { next: string }) {
       <input type="hidden" name="next" value={next} />
       <div>
         <label
-          className="block text-sm font-medium text-zinc-700"
+          className="form-label"
           htmlFor="display_name"
         >
           Your name
@@ -23,12 +23,12 @@ export default function SignupForm({ next }: { next: string }) {
           name="display_name"
           type="text"
           required
-          className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm"
+          className="input-field mt-1"
         />
       </div>
       <div>
         <label
-          className="block text-sm font-medium text-zinc-700"
+          className="form-label"
           htmlFor="email"
         >
           Email
@@ -38,12 +38,12 @@ export default function SignupForm({ next }: { next: string }) {
           name="email"
           type="email"
           required
-          className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm"
+          className="input-field mt-1"
         />
       </div>
       <div>
         <label
-          className="block text-sm font-medium text-zinc-700"
+          className="form-label"
           htmlFor="phone"
         >
           Phone (optional)
@@ -53,12 +53,12 @@ export default function SignupForm({ next }: { next: string }) {
           name="phone"
           type="tel"
           placeholder="07XX XXX XXX"
-          className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm"
+          className="input-field mt-1"
         />
       </div>
       <div>
         <label
-          className="block text-sm font-medium text-zinc-700"
+          className="form-label"
           htmlFor="password"
         >
           Password
@@ -69,14 +69,14 @@ export default function SignupForm({ next }: { next: string }) {
           type="password"
           required
           minLength={8}
-          className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm"
+          className="input-field mt-1"
         />
       </div>
-      {state.error && <p className="text-sm text-red-600">{state.error}</p>}
+      {state.error && <p className="text-sm text-rose-400">{state.error}</p>}
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500 disabled:opacity-60"
+        className="btn-primary w-full"
       >
         {pending ? "Creating account..." : "Create account"}
       </button>

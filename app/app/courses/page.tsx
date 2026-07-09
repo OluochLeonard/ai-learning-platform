@@ -13,40 +13,43 @@ export default async function CoursesPage() {
 
   return (
     <div className="mx-auto max-w-md p-6">
-      <h1 className="text-2xl font-semibold text-zinc-900">Courses</h1>
-      <p className="mt-1 text-sm text-zinc-500">
+      <h1 className="animate-fade-up text-3xl font-bold tracking-tight text-white">
+        Courses
+      </h1>
+      <p className="animate-fade-up anim-delay-1 mt-1 text-sm text-zinc-500">
         {profile.is_child
           ? "Pick a course and start creating."
           : "Practical AI skills, one short lesson at a time."}
       </p>
 
       {tracks.length === 0 ? (
-        <div className="mt-8 rounded-2xl border border-zinc-200 bg-white p-6 text-center">
-          <p className="text-3xl">🧑‍🚀</p>
-          <p className="mt-2 text-sm font-semibold text-zinc-900">
+        <div className="glass animate-fade-up anim-delay-2 mt-8 p-8 text-center">
+          <p className="text-4xl">🧑‍🚀</p>
+          <p className="mt-3 text-sm font-semibold text-white">
             New courses are on the way
           </p>
-          <p className="mt-1 text-sm text-zinc-600">
+          <p className="mt-1 text-sm text-zinc-400">
             Check back soon. Good things are coming.
           </p>
         </div>
       ) : (
         <div className="mt-6 space-y-4">
-          {tracks.map((track) => (
+          {tracks.map((track, i) => (
             <Link
               key={track.id}
               href={`/app/courses/${track.slug}`}
-              className="block rounded-2xl border border-zinc-200 bg-white p-5 transition-colors hover:border-indigo-400"
+              className={`glass glass-hover animate-fade-up anim-delay-${Math.min(i + 2, 4)} relative block overflow-hidden p-5`}
             >
-              <h2 className="text-base font-semibold text-zinc-900">
+              <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-violet-500/15 blur-2xl" />
+              <h2 className="relative text-base font-semibold text-white">
                 {track.title}
               </h2>
               {track.description && (
-                <p className="mt-1 text-sm text-zinc-600">
+                <p className="relative mt-1 text-sm leading-relaxed text-zinc-400">
                   {track.description}
                 </p>
               )}
-              <p className="mt-2 text-xs font-medium text-indigo-600">
+              <p className="relative mt-3 text-xs font-semibold text-indigo-300">
                 Start learning →
               </p>
             </Link>

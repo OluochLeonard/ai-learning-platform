@@ -16,14 +16,16 @@ export default async function PricingPage() {
 
   return (
     <div className="mx-auto w-full max-w-md px-5 py-8">
-      <h1 className="text-2xl font-bold text-zinc-900">Plans and pricing</h1>
+      <h1 className="text-3xl font-bold tracking-tight text-white">
+        Plans and pricing
+      </h1>
       <p className="mb-6 mt-1 text-sm text-zinc-500">
         Pay with M-Pesa. No auto-charges: you renew when you choose.
       </p>
       <PlanCards plans={adultPlans} highlightSlug="adult-monthly" />
       {kidsPlans.length > 0 && (
         <>
-          <h2 className="mt-8 text-lg font-semibold text-zinc-900">
+          <h2 className="mt-10 text-lg font-semibold text-white">
             For your kids
           </h2>
           <p className="mb-4 mt-1 text-sm text-zinc-500">

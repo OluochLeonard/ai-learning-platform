@@ -106,19 +106,22 @@ export default function LessonPlayer({
   return (
     <div className="mx-auto flex min-h-[calc(100vh-8rem)] w-full max-w-md flex-col px-5 py-4">
       <div className="flex items-center gap-3">
-        <Link href={`/app/courses/${trackSlug}`} className="text-zinc-400">
+        <Link
+          href={`/app/courses/${trackSlug}`}
+          className="text-zinc-500 transition-colors hover:text-zinc-300"
+        >
           ✕
         </Link>
-        <div className="h-2 flex-1 overflow-hidden rounded-full bg-zinc-200">
+        <div className="h-2 flex-1 overflow-hidden rounded-full bg-white/[0.07]">
           <div
-            className="h-full rounded-full bg-indigo-600 transition-all duration-300"
+            className="h-full rounded-full bg-gradient-to-r from-indigo-500 via-violet-500 to-cyan-400 shadow-[0_0_10px_rgba(99,102,241,0.6)] transition-all duration-300"
             style={{ width: `${Math.max(progressPct, 3)}%` }}
           />
         </div>
       </div>
 
       {error && (
-        <p className="mt-3 rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-800">
+        <p className="mt-3 rounded-xl border border-amber-400/25 bg-amber-400/[0.08] px-3 py-2 text-sm text-amber-300">
           {error}
         </p>
       )}
@@ -173,7 +176,10 @@ function ConceptScreen({
   return (
     <div className="flex flex-1 flex-col">
       <div className="flex-1">
-        <p className="whitespace-pre-line text-lg leading-relaxed text-zinc-800">
+        <p
+          key={step}
+          className="animate-fade-up whitespace-pre-line text-lg leading-relaxed text-zinc-200"
+        >
           {screen.text}
         </p>
       </div>
@@ -181,7 +187,7 @@ function ConceptScreen({
         type="button"
         onClick={onNext}
         disabled={pending}
-        className="mt-6 w-full rounded-xl bg-indigo-600 px-6 py-4 text-base font-semibold text-white hover:bg-indigo-500 disabled:opacity-60"
+        className="btn-primary mt-6 w-full py-4 text-base"
       >
         {pending ? "Saving..." : "Continue"}
       </button>
@@ -226,21 +232,25 @@ function QuizScreen({
   return (
     <div className="flex flex-1 flex-col">
       <div className="flex-1">
-        <p className="text-lg font-semibold leading-snug text-zinc-900">
+        <p className="animate-fade-up text-xl font-bold leading-snug tracking-tight text-white">
           {question.question}
         </p>
 
         {question.type !== "fill_blank" ? (
           <div className="mt-5 space-y-3">
             {question.options.map((opt, i) => {
-              let style = "border-zinc-200 bg-white hover:border-indigo-400";
+              let style =
+                "glass glass-hover text-zinc-100 active:scale-[0.98]";
               if (result !== null) {
                 if (i === question.correct) {
-                  style = "border-green-500 bg-green-50";
+                  style =
+                    "rounded-2xl border border-emerald-400/50 bg-emerald-400/10 text-emerald-100 shadow-[0_0_20px_rgba(16,185,129,0.2)]";
                 } else if (i === picked) {
-                  style = "border-red-400 bg-red-50";
+                  style =
+                    "rounded-2xl border border-rose-400/50 bg-rose-500/10 text-rose-100";
                 } else {
-                  style = "border-zinc-200 bg-white opacity-60";
+                  style =
+                    "rounded-2xl border border-white/[0.06] bg-white/[0.02] text-zinc-500";
                 }
               }
               return (
@@ -248,7 +258,7 @@ function QuizScreen({
                   key={i}
                   type="button"
                   onClick={() => answerChoice(i)}
-                  className={`w-full whitespace-pre-line rounded-xl border px-4 py-3 text-left text-sm font-medium text-zinc-800 ${style}`}
+                  className={`w-full whitespace-pre-line px-4 py-3.5 text-left text-sm font-medium ${style}`}
                 >
                   {opt}
                 </button>
@@ -262,14 +272,14 @@ function QuizScreen({
               onChange={(e) => setTyped(e.target.value)}
               disabled={result !== null}
               placeholder="Type your answer"
-              className="w-full rounded-xl border border-zinc-300 px-4 py-3 text-base"
+              className="input-field py-3 text-base"
             />
             {result === null && (
               <button
                 type="button"
                 onClick={answerTyped}
                 disabled={!typed.trim()}
-                className="mt-3 w-full rounded-xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white hover:bg-indigo-500 disabled:opacity-50"
+                className="btn-primary mt-3 w-full"
               >
                 Check
               </button>
@@ -279,14 +289,16 @@ function QuizScreen({
 
         {result !== null && (
           <div
-            className={`mt-4 rounded-xl px-4 py-3 text-sm ${
-              result ? "bg-green-50 text-green-800" : "bg-red-50 text-red-800"
+            className={`animate-fade-up mt-4 rounded-2xl border px-4 py-3.5 text-sm ${
+              result
+                ? "border-emerald-400/30 bg-emerald-400/[0.08] text-emerald-200"
+                : "border-rose-400/30 bg-rose-500/[0.08] text-rose-200"
             }`}
           >
             <p className="font-semibold">
-              {result ? "Correct!" : "Not quite."}
+              {result ? "Correct! ⚡" : "Not quite."}
             </p>
-            <p className="mt-0.5">{question.explanation}</p>
+            <p className="mt-0.5 text-zinc-300">{question.explanation}</p>
           </div>
         )}
       </div>
@@ -296,7 +308,7 @@ function QuizScreen({
           type="button"
           onClick={onNext}
           disabled={pending}
-          className="mt-6 w-full rounded-xl bg-indigo-600 px-6 py-4 text-base font-semibold text-white hover:bg-indigo-500 disabled:opacity-60"
+          className="btn-primary mt-6 w-full py-4 text-base"
         >
           {pending ? "Saving..." : "Continue"}
         </button>
@@ -355,18 +367,18 @@ function PracticeScreen({
   return (
     <div className="flex flex-1 flex-col">
       <div className="flex-1">
-        <p className="text-lg font-semibold leading-snug text-zinc-900">
+        <p className="animate-fade-up text-xl font-bold tracking-tight text-white">
           Your turn 💪
         </p>
-        <p className="mt-2 whitespace-pre-line text-sm text-zinc-700">
+        <p className="animate-fade-up anim-delay-1 mt-2 whitespace-pre-line text-sm leading-relaxed text-zinc-300">
           {content.instructions}
         </p>
 
         {!feedback && (
-          <div className="mt-5">
+          <div className="animate-fade-up anim-delay-2 mt-5">
             {kidsMode ? (
-              <div className="rounded-xl border border-zinc-200 bg-white p-4">
-                <p className="text-sm text-zinc-700">
+              <div className="glass-strong p-4">
+                <p className="text-sm leading-loose text-zinc-200">
                   {content.template!.split("___")[0]}
                   <input
                     value={input}
@@ -374,7 +386,7 @@ function PracticeScreen({
                       setInput(e.target.value.slice(0, maxLength))
                     }
                     placeholder="type here"
-                    className="mx-1 inline-block w-40 rounded-md border border-indigo-300 bg-indigo-50 px-2 py-1 text-sm"
+                    className="mx-1 inline-block w-40 rounded-lg border border-cyan-400/40 bg-cyan-400/10 px-2 py-1 text-sm text-cyan-100 placeholder-cyan-300/40 outline-none focus:border-cyan-300"
                   />
                   {content.template!.split("___")[1] ?? ""}
                 </p>
@@ -385,41 +397,42 @@ function PracticeScreen({
                 onChange={(e) => setInput(e.target.value.slice(0, maxLength))}
                 rows={5}
                 placeholder="Write your prompt here..."
-                className="w-full rounded-xl border border-zinc-300 px-4 py-3 text-base"
+                className="input-field py-3 text-base"
               />
             )}
-            <p className="mt-1 text-right text-xs text-zinc-400">
+            <p className="mt-1 text-right text-xs text-zinc-600">
               {input.length}/{maxLength}
             </p>
             {apiError && (
-              <p className="mt-2 text-sm text-red-600">{apiError}</p>
+              <p className="mt-2 text-sm text-rose-400">{apiError}</p>
             )}
             <button
               type="button"
               onClick={submit}
               disabled={!input.trim() || submitting}
-              className="mt-3 w-full rounded-xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white hover:bg-indigo-500 disabled:opacity-50"
+              className="btn-primary mt-3 w-full"
             >
-              {submitting ? "Getting feedback..." : "Get feedback"}
+              {submitting ? "Getting feedback..." : "Get feedback ✨"}
             </button>
           </div>
         )}
 
         {feedback && (
           <div className="mt-5 space-y-3">
-            <div className="rounded-xl bg-indigo-50 p-4">
-              <p className="text-xs font-semibold uppercase tracking-wide text-indigo-500">
+            <div className="animate-fade-up relative overflow-hidden rounded-2xl border border-indigo-400/30 bg-gradient-to-br from-indigo-500/[0.14] to-violet-500/[0.06] p-4">
+              <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-indigo-500/20 blur-2xl" />
+              <p className="relative text-xs font-semibold uppercase tracking-widest text-indigo-300">
                 Coach feedback
               </p>
-              <p className="mt-1 whitespace-pre-line text-sm text-indigo-900">
+              <p className="relative mt-2 whitespace-pre-line text-sm leading-relaxed text-zinc-200">
                 {feedback.feedback}
               </p>
             </div>
-            <div className="rounded-xl border border-zinc-200 bg-white p-4">
-              <p className="text-xs font-semibold uppercase tracking-wide text-zinc-400">
+            <div className="glass animate-fade-up anim-delay-1 p-4">
+              <p className="text-xs font-semibold uppercase tracking-widest text-zinc-500">
                 Example result
               </p>
-              <p className="mt-1 whitespace-pre-line text-sm text-zinc-700">
+              <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-zinc-300">
                 {feedback.sample}
               </p>
             </div>
@@ -432,7 +445,7 @@ function PracticeScreen({
           type="button"
           onClick={onNext}
           disabled={pending}
-          className="mt-6 w-full rounded-xl bg-indigo-600 px-6 py-4 text-base font-semibold text-white hover:bg-indigo-500 disabled:opacity-60"
+          className="btn-primary mt-6 w-full py-4 text-base"
         >
           {pending ? "Saving..." : "Continue"}
         </button>
@@ -451,20 +464,26 @@ function CompletionScreen({
   if (result.certificateId) {
     return (
       <div className="mx-auto flex min-h-[calc(100vh-8rem)] w-full max-w-md flex-col items-center justify-center px-5 py-10 text-center">
-        <div className="text-6xl">🎓</div>
-        <h1 className="mt-4 text-2xl font-bold text-zinc-900">
+        <div className="animate-fade-up relative">
+          <div className="text-6xl">🎓</div>
+          <span className="absolute -inset-8 -z-10 rounded-full bg-violet-500/30 blur-3xl" />
+        </div>
+        <h1 className="animate-fade-up anim-delay-1 mt-5 text-3xl font-bold tracking-tight text-white">
           Course complete!
         </h1>
-        <p className="mt-2 text-zinc-600">
+        <p className="animate-fade-up anim-delay-2 mt-2 text-zinc-400">
           You finished every lesson. Your certificate is ready.
         </p>
         <Link
           href={`/app/certificate/${result.certificateId}`}
-          className="mt-8 w-full rounded-xl bg-indigo-600 px-6 py-4 text-base font-semibold text-white hover:bg-indigo-500"
+          className="btn-primary animate-fade-up anim-delay-3 mt-8 w-full py-4 text-base"
         >
           View my certificate 🎉
         </Link>
-        <Link href={`/app/courses/${trackSlug}`} className="mt-3 text-sm text-zinc-500">
+        <Link
+          href={`/app/courses/${trackSlug}`}
+          className="mt-4 text-sm text-zinc-500 transition-colors hover:text-zinc-300"
+        >
           Back to course
         </Link>
       </div>
@@ -473,39 +492,45 @@ function CompletionScreen({
 
   return (
     <div className="mx-auto flex min-h-[calc(100vh-8rem)] w-full max-w-md flex-col items-center justify-center px-5 py-10 text-center">
-      <div className="text-6xl">🔥</div>
-      <h1 className="mt-4 text-2xl font-bold text-zinc-900">
+      <div className="animate-fade-up relative">
+        <div className="text-6xl">🔥</div>
+        <span className="absolute -inset-8 -z-10 rounded-full bg-amber-500/25 blur-3xl" />
+      </div>
+      <h1 className="animate-fade-up anim-delay-1 mt-5 text-3xl font-bold tracking-tight text-white">
         {result.streak.extendedToday
           ? `${result.streak.current} day streak!`
           : "Lesson complete!"}
       </h1>
-      <p className="mt-2 text-zinc-600">
+      <p className="animate-fade-up anim-delay-2 mt-2 text-zinc-400">
         {result.streak.extendedToday
           ? "You showed up today. That's how skills are built."
           : `Streak already counted today. Current: ${result.streak.current} days.`}
       </p>
-      <div className="mt-6 w-full">
-        <div className="h-3 w-full overflow-hidden rounded-full bg-zinc-200">
-          <div className="h-full w-full animate-pulse rounded-full bg-green-500" />
+      <div className="animate-fade-up anim-delay-3 mt-7 w-full">
+        <div className="h-3 w-full overflow-hidden rounded-full bg-white/[0.07]">
+          <div className="h-full w-full animate-pulse rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400 shadow-[0_0_14px_rgba(16,185,129,0.5)]" />
         </div>
-        <p className="mt-1 text-xs text-zinc-500">Lesson 100% complete</p>
+        <p className="mt-1.5 text-xs text-zinc-500">Lesson 100% complete</p>
       </div>
       {result.nextLessonId ? (
         <Link
           href={`/app/lesson/${result.nextLessonId}`}
-          className="mt-8 w-full rounded-xl bg-indigo-600 px-6 py-4 text-base font-semibold text-white hover:bg-indigo-500"
+          className="btn-primary animate-fade-up anim-delay-4 mt-8 w-full py-4 text-base"
         >
           Next lesson →
         </Link>
       ) : (
         <Link
           href={`/app/courses/${trackSlug}`}
-          className="mt-8 w-full rounded-xl bg-indigo-600 px-6 py-4 text-base font-semibold text-white hover:bg-indigo-500"
+          className="btn-primary animate-fade-up anim-delay-4 mt-8 w-full py-4 text-base"
         >
           Back to course
         </Link>
       )}
-      <Link href="/app" className="mt-3 text-sm text-zinc-500">
+      <Link
+        href="/app"
+        className="mt-4 text-sm text-zinc-500 transition-colors hover:text-zinc-300"
+      >
         Home
       </Link>
     </div>

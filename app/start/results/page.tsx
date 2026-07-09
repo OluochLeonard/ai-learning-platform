@@ -44,29 +44,35 @@ export default async function ResultsPage() {
 
   return (
     <div className="mx-auto w-full max-w-md px-5 py-8">
-      <p className="text-sm font-medium text-indigo-600">
+      <p className="animate-fade-up text-sm font-semibold uppercase tracking-widest text-cyan-300">
         Your personalized plan
       </p>
-      <h1 className="mt-1 text-2xl font-bold text-zinc-900">
+      <h1 className="animate-fade-up anim-delay-1 mt-2 text-3xl font-bold tracking-tight text-white">
         {recommendation.title}
       </h1>
-      <p className="mt-2 text-zinc-600">{recommendation.pitch}</p>
+      <p className="animate-fade-up anim-delay-2 mt-2 leading-relaxed text-zinc-400">
+        {recommendation.pitch}
+      </p>
 
-      <div className="mt-5 rounded-2xl bg-indigo-50 p-5">
-        <p className="text-sm font-semibold text-indigo-900">
+      <div className="animate-fade-up anim-delay-3 relative mt-6 overflow-hidden rounded-2xl border border-indigo-400/30 bg-gradient-to-br from-indigo-500/[0.14] via-violet-500/[0.08] to-transparent p-5">
+        <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-indigo-500/25 blur-3xl" />
+        <p className="relative text-sm font-semibold text-white">
           With {timePerDay} a day, in your first 2 weeks you can:
         </p>
-        <ul className="mt-2 space-y-1.5 text-sm text-indigo-800">
+        <ul className="relative mt-3 space-y-2 text-sm text-zinc-200">
           {recommendation.outcomes.map((o) => (
-            <li key={o}>✓ {o}</li>
+            <li key={o} className="flex items-start gap-2">
+              <span className="mt-0.5 text-cyan-300">✓</span>
+              {o}
+            </li>
           ))}
         </ul>
       </div>
 
-      <h2 className="mt-8 text-lg font-semibold text-zinc-900">
+      <h2 className="mt-10 text-lg font-semibold text-white">
         Start today. Pick your plan.
       </h2>
-      <p className="mb-4 mt-1 text-sm text-zinc-500">
+      <p className="mb-5 mt-1 text-sm text-zinc-500">
         Pay with M-Pesa. Cancel anytime by simply not renewing.
       </p>
       <PlanCards plans={plans ?? []} highlightSlug="adult-monthly" />

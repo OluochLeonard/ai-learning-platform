@@ -21,15 +21,15 @@ function ProgressBars({
         return (
           <div key={track.id}>
             <div className="flex items-baseline justify-between">
-              <p className="text-sm font-medium text-zinc-800">{track.title}</p>
+              <p className="text-sm font-medium text-zinc-200">{track.title}</p>
               <p className="text-xs text-zinc-500">
                 {completedLessons}/{totalLessons}
               </p>
             </div>
-            <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-zinc-200">
+            <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-white/[0.07]">
               <div
                 className={`h-full rounded-full transition-all ${
-                  pct === 100 ? "bg-green-500" : "bg-indigo-600"
+                  pct === 100 ? "bg-gradient-to-r from-emerald-400 to-cyan-400" : "bg-gradient-to-r from-indigo-500 to-violet-500"
                 }`}
                 style={{ width: `${pct}%` }}
               />
@@ -75,26 +75,26 @@ export default async function ProgressPage() {
 
   return (
     <div className="mx-auto max-w-md space-y-6 p-6">
-      <h1 className="text-2xl font-semibold text-zinc-900">Progress</h1>
+      <h1 className="text-3xl font-bold tracking-tight text-white">Progress</h1>
 
       <div className="grid grid-cols-3 gap-3 text-center">
-        <div className="rounded-2xl border border-zinc-200 bg-white p-4">
+        <div className="glass p-4">
           <p className="text-2xl">🔥</p>
-          <p className="mt-1 text-xl font-bold text-zinc-900">
+          <p className="mt-1 text-xl font-bold text-white">
             {stats.currentStreak}
           </p>
           <p className="text-xs text-zinc-500">day streak</p>
         </div>
-        <div className="rounded-2xl border border-zinc-200 bg-white p-4">
+        <div className="glass p-4">
           <p className="text-2xl">🏆</p>
-          <p className="mt-1 text-xl font-bold text-zinc-900">
+          <p className="mt-1 text-xl font-bold text-white">
             {stats.longestStreak}
           </p>
           <p className="text-xs text-zinc-500">best streak</p>
         </div>
-        <div className="rounded-2xl border border-zinc-200 bg-white p-4">
+        <div className="glass p-4">
           <p className="text-2xl">✅</p>
-          <p className="mt-1 text-xl font-bold text-zinc-900">
+          <p className="mt-1 text-xl font-bold text-white">
             {stats.lessonsCompleted}
           </p>
           <p className="text-xs text-zinc-500">lessons done</p>
@@ -102,8 +102,8 @@ export default async function ProgressPage() {
       </div>
 
       {trackProgress.length > 0 && (
-        <div className="rounded-2xl border border-zinc-200 bg-white p-5">
-          <h2 className="text-sm font-semibold text-zinc-900">Your courses</h2>
+        <div className="glass p-5">
+          <h2 className="text-sm font-semibold text-white">Your courses</h2>
           <div className="mt-3">
             <ProgressBars items={trackProgress} />
           </div>
@@ -111,8 +111,8 @@ export default async function ProgressPage() {
       )}
 
       {(certs ?? []).length > 0 && (
-        <div className="rounded-2xl border border-zinc-200 bg-white p-5">
-          <h2 className="text-sm font-semibold text-zinc-900">
+        <div className="glass p-5">
+          <h2 className="text-sm font-semibold text-white">
             Certificates 🎓
           </h2>
           <div className="mt-3 space-y-2">
@@ -120,12 +120,12 @@ export default async function ProgressPage() {
               <Link
                 key={cert.id}
                 href={`/app/certificate/${cert.id}`}
-                className="flex items-center justify-between rounded-xl border border-zinc-200 px-4 py-3 hover:border-indigo-400"
+                className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 transition-colors hover:border-indigo-400/50"
               >
-                <span className="text-sm font-medium text-zinc-800">
+                <span className="text-sm font-medium text-zinc-200">
                   {(cert.tracks as unknown as { title: string })?.title}
                 </span>
-                <span className="text-xs text-indigo-600">View →</span>
+                <span className="text-xs font-semibold text-indigo-300">View →</span>
               </Link>
             ))}
           </div>
@@ -133,15 +133,15 @@ export default async function ProgressPage() {
       )}
 
       {kids.length > 0 && (
-        <div className="rounded-2xl border border-zinc-200 bg-white p-5">
-          <h2 className="text-sm font-semibold text-zinc-900">Your kids</h2>
+        <div className="glass p-5">
+          <h2 className="text-sm font-semibold text-white">Your kids</h2>
           <div className="mt-3 space-y-5">
             {kids.map(({ profile: kid, stats: kidStats, tracks }) => (
               <div key={kid.id}>
                 <div className="flex items-center justify-between">
-                  <p className="text-sm font-semibold text-zinc-800">
+                  <p className="text-sm font-semibold text-zinc-200">
                     {kid.display_name}{" "}
-                    <span className="font-normal text-zinc-400">
+                    <span className="font-normal text-zinc-500">
                       ({kid.age_band})
                     </span>
                   </p>

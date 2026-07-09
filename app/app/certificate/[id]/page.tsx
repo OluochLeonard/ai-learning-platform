@@ -50,8 +50,9 @@ export default async function CertificatePage({
 
   return (
     <div className="mx-auto max-w-md space-y-5 p-6">
-      <div className="rounded-2xl border-2 border-indigo-600 bg-white p-6 text-center">
-        <p className="text-xs font-bold uppercase tracking-widest text-indigo-600">
+      {/* Paper-white certificate pops against the dark shell */}
+      <div className="animate-fade-up relative overflow-hidden rounded-2xl border-2 border-indigo-400/60 bg-white p-6 text-center shadow-[0_0_48px_rgba(99,102,241,0.35)]">
+        <p className="text-xs font-bold uppercase tracking-[0.3em] text-indigo-600">
           PLATFORM
         </p>
         <p className="mt-3 text-xs uppercase tracking-wide text-zinc-400">
@@ -79,17 +80,17 @@ export default async function CertificatePage({
 
       <a
         href={`/api/certificates/${cert.id}/download`}
-        className="block w-full rounded-xl bg-indigo-600 px-6 py-4 text-center text-base font-semibold text-white hover:bg-indigo-500"
+        className="btn-primary animate-fade-up anim-delay-1 flex w-full py-4 text-base"
       >
         Download PDF
       </a>
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="animate-fade-up anim-delay-2 grid grid-cols-2 gap-3">
         <a
           href={`https://wa.me/?text=${whatsappText}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-xl bg-green-600 px-4 py-3 text-center text-sm font-semibold text-white hover:bg-green-500"
+          className="rounded-xl bg-gradient-to-r from-emerald-500 to-green-500 px-4 py-3 text-center text-sm font-semibold text-white transition-all hover:brightness-110 active:scale-[0.98]"
         >
           Share on WhatsApp
         </a>
@@ -97,7 +98,7 @@ export default async function CertificatePage({
           href={linkedinUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-xl bg-sky-700 px-4 py-3 text-center text-sm font-semibold text-white hover:bg-sky-600"
+          className="rounded-xl bg-sky-600 px-4 py-3 text-center text-sm font-semibold text-white transition-all hover:brightness-110 active:scale-[0.98]"
         >
           Add to LinkedIn
         </a>
@@ -105,13 +106,19 @@ export default async function CertificatePage({
 
       <p className="text-center text-xs text-zinc-500">
         Anyone can verify this certificate at{" "}
-        <Link href={`/verify/${cert.verification_code}`} className="text-indigo-600">
+        <Link
+          href={`/verify/${cert.verification_code}`}
+          className="text-indigo-300 hover:text-indigo-200"
+        >
           {verifyUrl.replace(/^https?:\/\//, "")}
         </Link>
       </p>
 
       <p className="text-center">
-        <Link href="/app/progress" className="text-sm text-zinc-500">
+        <Link
+          href="/app/progress"
+          className="text-sm text-zinc-500 transition-colors hover:text-zinc-300"
+        >
           ← Back to progress
         </Link>
       </p>

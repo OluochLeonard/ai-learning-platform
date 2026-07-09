@@ -23,24 +23,24 @@ export default function ProfileSwitcher({
   const [addingChild, setAddingChild] = useState(false);
 
   return (
-    <div className="mx-auto flex min-h-full max-w-2xl flex-col items-center justify-center gap-8 px-6 py-16">
-      <h1 className="text-2xl font-semibold text-zinc-900">
+    <div className="mx-auto flex min-h-screen max-w-2xl flex-col items-center justify-center gap-8 px-6 py-16">
+      <h1 className="animate-fade-up text-3xl font-bold tracking-tight text-white">
         Who&apos;s learning?
       </h1>
 
-      <div className="flex flex-wrap justify-center gap-4">
+      <div className="animate-fade-up anim-delay-1 flex flex-wrap justify-center gap-4">
         {adult && (
           <form action={selectProfile}>
             <input type="hidden" name="profile_id" value={adult.id} />
             <input type="hidden" name="next" value={next} />
             <button
               type="submit"
-              className="flex w-32 flex-col items-center gap-2 rounded-xl border border-zinc-200 bg-white p-4 hover:border-indigo-400 hover:shadow-sm"
+              className="glass glass-hover flex w-32 flex-col items-center gap-2 p-4 active:scale-[0.97]"
             >
-              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-indigo-100 text-lg font-semibold text-indigo-700">
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 text-lg font-bold text-white shadow-[0_0_20px_rgba(99,102,241,0.4)]">
                 {adult.display_name.charAt(0).toUpperCase()}
               </span>
-              <span className="text-sm font-medium text-zinc-800">
+              <span className="text-sm font-medium text-zinc-200">
                 {adult.display_name}
               </span>
             </button>
@@ -52,19 +52,19 @@ export default function ProfileSwitcher({
             <form
               key={child.id}
               action={updateChildProfile}
-              className="flex w-40 flex-col gap-2 rounded-xl border border-zinc-200 bg-white p-4"
+              className="glass-strong flex w-44 flex-col gap-2 p-4"
             >
               <input type="hidden" name="profile_id" value={child.id} />
               <input
                 name="display_name"
                 defaultValue={child.display_name}
                 required
-                className="rounded-md border border-zinc-300 px-2 py-1 text-sm"
+                className="input-field px-2 py-1.5 text-sm"
               />
               <select
                 name="age_band"
                 defaultValue={child.age_band ?? "8-12"}
-                className="rounded-md border border-zinc-300 px-2 py-1 text-sm"
+                className="input-field px-2 py-1.5 text-sm"
               >
                 {AGE_BANDS.map((band) => (
                   <option key={band} value={band}>
@@ -75,14 +75,14 @@ export default function ProfileSwitcher({
               <div className="flex gap-2">
                 <button
                   type="submit"
-                  className="flex-1 rounded-md bg-indigo-600 px-2 py-1 text-xs font-medium text-white hover:bg-indigo-500"
+                  className="flex-1 rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 px-2 py-1.5 text-xs font-semibold text-white"
                 >
                   Save
                 </button>
                 <button
                   type="button"
                   onClick={() => setEditingId(null)}
-                  className="flex-1 rounded-md border border-zinc-300 px-2 py-1 text-xs font-medium text-zinc-600"
+                  className="flex-1 rounded-lg border border-white/15 px-2 py-1.5 text-xs font-medium text-zinc-300"
                 >
                   Cancel
                 </button>
@@ -91,19 +91,19 @@ export default function ProfileSwitcher({
           ) : (
             <div
               key={child.id}
-              className="flex w-32 flex-col items-center gap-2 rounded-xl border border-zinc-200 bg-white p-4"
+              className="glass glass-hover flex w-32 flex-col items-center gap-2 p-4"
             >
               <form action={selectProfile} className="contents">
                 <input type="hidden" name="profile_id" value={child.id} />
                 <input type="hidden" name="next" value={next} />
                 <button
                   type="submit"
-                  className="flex flex-col items-center gap-2 hover:opacity-80"
+                  className="flex flex-col items-center gap-2 active:scale-[0.97]"
                 >
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-amber-100 text-lg font-semibold text-amber-700">
+                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-amber-400 to-pink-500 text-lg font-bold text-white shadow-[0_0_20px_rgba(251,191,36,0.35)]">
                     {child.display_name.charAt(0).toUpperCase()}
                   </span>
-                  <span className="text-sm font-medium text-zinc-800">
+                  <span className="text-sm font-medium text-zinc-200">
                     {child.display_name}
                   </span>
                   <span className="text-xs text-zinc-500">
@@ -114,7 +114,7 @@ export default function ProfileSwitcher({
               <button
                 type="button"
                 onClick={() => setEditingId(child.id)}
-                className="text-xs font-medium text-indigo-600"
+                className="text-xs font-medium text-indigo-300 hover:text-indigo-200"
               >
                 Edit
               </button>
@@ -125,7 +125,7 @@ export default function ProfileSwitcher({
         <button
           type="button"
           onClick={() => setAddingChild((v) => !v)}
-          className="flex w-32 flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-zinc-300 p-4 text-zinc-500 hover:border-indigo-400 hover:text-indigo-600"
+          className="flex w-32 flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-white/20 p-4 text-zinc-500 transition-colors hover:border-indigo-400/50 hover:text-indigo-300"
         >
           <span className="flex h-14 w-14 items-center justify-center rounded-full border border-dashed border-current text-2xl">
             +
@@ -137,26 +137,18 @@ export default function ProfileSwitcher({
       {addingChild && (
         <form
           action={createChildProfile}
-          className="flex w-full max-w-xs flex-col gap-3 rounded-xl border border-zinc-200 bg-white p-4"
+          className="glass-strong animate-fade-up flex w-full max-w-xs flex-col gap-3 p-4"
         >
           <div>
-            <label className="block text-sm font-medium text-zinc-700">
-              Child&apos;s name
-            </label>
-            <input
-              name="display_name"
-              required
-              className="mt-1 w-full rounded-md border border-zinc-300 px-2 py-1.5 text-sm"
-            />
+            <label className="form-label">Child&apos;s name</label>
+            <input name="display_name" required className="input-field mt-1" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-700">
-              Age band
-            </label>
+            <label className="form-label">Age band</label>
             <select
               name="age_band"
               defaultValue="8-12"
-              className="mt-1 w-full rounded-md border border-zinc-300 px-2 py-1.5 text-sm"
+              className="input-field mt-1"
             >
               {AGE_BANDS.map((band) => (
                 <option key={band} value={band}>
@@ -165,10 +157,7 @@ export default function ProfileSwitcher({
               ))}
             </select>
           </div>
-          <button
-            type="submit"
-            className="rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-indigo-500"
-          >
+          <button type="submit" className="btn-primary">
             Add profile
           </button>
         </form>

@@ -17,13 +17,16 @@ export default async function WelcomePage() {
 
   return (
     <div className="mx-auto flex w-full max-w-md flex-1 flex-col items-center justify-center px-5 py-10 text-center">
-      <div className="text-5xl">🎉</div>
-      <h1 className="mt-4 text-2xl font-bold text-zinc-900">
+      <div className="animate-fade-up relative">
+        <div className="text-6xl">🎉</div>
+        <span className="absolute -inset-6 -z-10 rounded-full bg-violet-500/25 blur-3xl" />
+      </div>
+      <h1 className="animate-fade-up anim-delay-1 mt-5 text-3xl font-bold tracking-tight text-white">
         You&apos;re in!
       </h1>
-      <p className="mt-2 text-zinc-600">
+      <p className="animate-fade-up anim-delay-2 mt-2 leading-relaxed text-zinc-400">
         Payment received. Your access is active until{" "}
-        <span className="font-semibold text-zinc-900">
+        <span className="font-semibold text-white">
           {access.expiresAt?.toLocaleDateString("en-KE", {
             day: "numeric",
             month: "long",
@@ -32,40 +35,49 @@ export default async function WelcomePage() {
         </span>
         .
       </p>
-      <div className="mt-6 w-full space-y-3 text-left">
-        <div className="rounded-xl border border-zinc-200 bg-white p-4">
-          <p className="text-sm font-semibold text-zinc-900">
-            1. Start your first lesson
-          </p>
-          <p className="mt-0.5 text-sm text-zinc-600">
-            Just 7 minutes. You will use AI before it ends.
-          </p>
+      <div className="animate-fade-up anim-delay-3 mt-7 w-full space-y-3 text-left">
+        <div className="glass glass-hover flex items-start gap-3 p-4">
+          <span className="text-xl">⚡</span>
+          <span>
+            <span className="block text-sm font-semibold text-white">
+              1. Start your first lesson
+            </span>
+            <span className="mt-0.5 block text-sm text-zinc-400">
+              Just 7 minutes. You will use AI before it ends.
+            </span>
+          </span>
         </div>
-        <div className="rounded-xl border border-zinc-200 bg-white p-4">
-          <p className="text-sm font-semibold text-zinc-900">
-            2. Come back tomorrow
-          </p>
-          <p className="mt-0.5 text-sm text-zinc-600">
-            Daily streaks keep you moving. Small steps, big skills.
-          </p>
+        <div className="glass glass-hover flex items-start gap-3 p-4">
+          <span className="text-xl">🔥</span>
+          <span>
+            <span className="block text-sm font-semibold text-white">
+              2. Come back tomorrow
+            </span>
+            <span className="mt-0.5 block text-sm text-zinc-400">
+              Daily streaks keep you moving. Small steps, big skills.
+            </span>
+          </span>
         </div>
         {(access.plan?.max_child_profiles ?? 0) > 0 && (
-          <div className="rounded-xl border border-zinc-200 bg-white p-4">
-            <p className="text-sm font-semibold text-zinc-900">
-              3. Add your kids
-            </p>
-            <p className="mt-0.5 text-sm text-zinc-600">
-              Your plan includes child profiles. Set them up from your
-              account page.
-            </p>
+          <div className="glass glass-hover flex items-start gap-3 p-4">
+            <span className="text-xl">👨‍👩‍👧</span>
+            <span>
+              <span className="block text-sm font-semibold text-white">
+                3. Add your kids
+              </span>
+              <span className="mt-0.5 block text-sm text-zinc-400">
+                Your plan includes child profiles. Set them up from your
+                account page.
+              </span>
+            </span>
           </div>
         )}
       </div>
       <Link
         href="/app"
-        className="mt-8 w-full rounded-xl bg-indigo-600 px-6 py-4 text-base font-semibold text-white hover:bg-indigo-500"
+        className="btn-primary animate-fade-up anim-delay-4 mt-8 w-full py-4 text-base"
       >
-        Go to my dashboard
+        Go to my dashboard →
       </Link>
     </div>
   );
