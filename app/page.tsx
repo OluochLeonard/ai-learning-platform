@@ -1,4 +1,11 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "PLATFORM: Learn AI. Earn more.",
+  description:
+    "Master ChatGPT and modern AI tools in 10 minutes a day. Practical skills for work, business and side income. Pay with M-Pesa. Made for Kenya.",
+};
 
 export default async function HomePage({
   searchParams,

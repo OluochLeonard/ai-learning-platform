@@ -4,6 +4,10 @@ import { getActiveProfile } from "@/lib/profile";
 import Header from "@/components/Header";
 import BottomNav from "@/components/BottomNav";
 
+export const metadata = {
+  robots: { index: false, follow: false },
+};
+
 export default async function AppShellLayout({
   children,
 }: {

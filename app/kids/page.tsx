@@ -1,4 +1,11 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Holiday AI Camp for Kids",
+  description:
+    "3 weeks of fun, guided AI lessons for ages 8 to 17. Safe, structured and fully managed from your parent account. Pay once with M-Pesa.",
+};
 
 export default function KidsLandingPage() {
   return (
