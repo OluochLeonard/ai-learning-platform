@@ -4,13 +4,7 @@ import { useState, useTransition } from "react";
 import { QUIZ_QUESTIONS } from "@/lib/funnel";
 import { submitQuiz } from "./actions";
 
-export default function QuizFunnel({
-  utmSource,
-  utmCampaign,
-}: {
-  utmSource: string | null;
-  utmCampaign: string | null;
-}) {
+export default function QuizFunnel() {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [pending, startTransition] = useTransition();
@@ -26,7 +20,14 @@ export default function QuizFunnel({
     if (step + 1 < total) {
       setStep(step + 1);
     } else {
-      startTransition(() => submitQuiz(next, utmSource, utmCampaign));
+      const params = new URLSearchParams(window.location.search);
+      startTransition(() =>
+        submitQuiz(
+          next,
+          params.get("utm_source"),
+          params.get("utm_campaign"),
+        ),
+      );
     }
   }
 

@@ -2,17 +2,8 @@ import QuizFunnel from "./QuizFunnel";
 
 export const metadata = { title: "Find your AI path" };
 
-export default async function StartPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ utm_source?: string; utm_campaign?: string }>;
-}) {
-  const { utm_source, utm_campaign } = await searchParams;
-
-  return (
-    <QuizFunnel
-      utmSource={utm_source ?? null}
-      utmCampaign={utm_campaign ?? null}
-    />
-  );
+// Static page: the quiz reads utm_* from the URL client-side at submit
+// time, so no server rendering is needed per request.
+export default function StartPage() {
+  return <QuizFunnel />;
 }
