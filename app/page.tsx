@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import StartCta from "@/components/StartCta";
 
 export const metadata: Metadata = {
   title: "PLATFORM: Learn AI. Earn more.",
@@ -7,17 +8,7 @@ export const metadata: Metadata = {
     "Master ChatGPT and modern AI tools in 10 minutes a day. Practical skills for work, business and side income. Pay with M-Pesa. Made for Kenya.",
 };
 
-export default async function HomePage({
-  searchParams,
-}: {
-  searchParams: Promise<{ utm_source?: string; utm_campaign?: string }>;
-}) {
-  const { utm_source, utm_campaign } = await searchParams;
-  const utmQuery = new URLSearchParams();
-  if (utm_source) utmQuery.set("utm_source", utm_source);
-  if (utm_campaign) utmQuery.set("utm_campaign", utm_campaign);
-  const startHref = utmQuery.size ? `/start?${utmQuery}` : "/start";
-
+export default function HomePage() {
   return (
     <div className="flex flex-1 flex-col">
       <header className="flex items-center justify-between px-5 py-4">
@@ -38,12 +29,9 @@ export default async function HomePage({
           Master ChatGPT and modern AI tools in 10 minutes a day. Practical
           skills for work, business and side income. Made for Kenya.
         </p>
-        <Link
-          href={startHref}
-          className="w-full rounded-xl bg-indigo-600 px-6 py-4 text-base font-semibold text-white shadow-sm hover:bg-indigo-500 md:w-auto md:px-10"
-        >
+        <StartCta className="w-full rounded-xl bg-indigo-600 px-6 py-4 text-base font-semibold text-white shadow-sm hover:bg-indigo-500 md:w-auto md:px-10">
           Find your AI path
-        </Link>
+        </StartCta>
         <p className="text-sm text-zinc-500">
           Takes 1 minute. No account needed to start.
         </p>

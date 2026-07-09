@@ -72,8 +72,21 @@ export async function proxy(request: NextRequest) {
   return response;
 }
 
+// Marketing pages (/, /kids, /start, /pricing, /verify) skip the proxy
+// entirely: no auth round-trip, so they stay static and fast. Only routes
+// that need a session (or its refresh) run through it.
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|sw.js|manifest.webmanifest|robots.txt|sitemap.xml|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/app",
+    "/app/:path*",
+    "/admin",
+    "/admin/:path*",
+    "/checkout/:path*",
+    "/welcome",
+    "/profiles",
+    "/login",
+    "/signup",
+    "/forgot-password",
+    "/update-password",
   ],
 };
